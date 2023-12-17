@@ -1,0 +1,100 @@
+@use "../default" as *;
+
+$left-default: 6.5rem;
+$left-active: 16rem;
+
+.topbar-left {
+  position: fixed;
+  left: $left-default;
+  z-index: 40;
+
+  @media screen and (max-width: $screen-sm) {
+    left: 1rem;
+  }
+
+  &.active {
+    left: $left-active;
+  }
+}
+
+#topbar-title {
+  @extend .topbar-left;
+  top: 1.2rem;
+
+  .header-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+}
+
+#topbar-features {
+  position: fixed;
+  z-index: 40;
+  top: 1.5rem;
+  right: 2.5rem;
+
+  @media screen and (max-width: $screen-sm) {
+    right: 1rem;
+    top: 1.85rem;
+  }
+
+  .attribute-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+
+    .icon-topbar {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+#display-setting {
+  @extend .topbar-left;
+  top: 5rem;
+  z-index: 30;
+
+  $transition-time: 0.2s;
+  $transition-anim: ease-out;
+
+  .item-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 999px;
+    transition: all $transition-time $transition-anim;
+
+    &:hover {
+      padding-right: 1rem;
+    }
+
+    &:hover .item-name {
+      width: auto;
+    }
+
+    &:hover .separator {
+      width: 0.5rem;
+    }
+
+    &.default {
+      background-color: $gray;
+    }
+
+    &.active {
+      background-color: $blue;
+    }
+
+    .separator {
+      width: 0;
+      transition: width $transition-time $transition-anim;
+    }
+
+    .item-name {
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width $transition-time $transition-anim;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@use "../default" as *;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  outline: 2px solid #c3c3c3;
+  outline-offset: 0;
+  caret-color: black;
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 1000px #e0e0e0 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}

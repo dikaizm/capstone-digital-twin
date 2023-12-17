@@ -1,0 +1,47 @@
+.animateContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: auto 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  .circleCell {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .circleCell:nth-child(1) {
+    animation: circleAnimation 2s cubic-bezier(0.38, 0.08, 0.25, 1.08) infinite -0.6s;
+  }
+
+  .circleCell:nth-child(2) {
+    animation: circleAnimation 2s cubic-bezier(0.38, 0.08, 0.25, 1.08) infinite -0.3s;
+  }
+
+  .circleCell:nth-child(3) {
+    animation: circleAnimation 2s cubic-bezier(0.38, 0.08, 0.25, 1.08) infinite;
+  }
+}
+
+@keyframes circleAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    background: #1975ff;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}

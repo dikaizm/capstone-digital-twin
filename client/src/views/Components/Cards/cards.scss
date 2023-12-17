@@ -1,0 +1,11 @@
+@use "../../../sass/default" as *;
+
+#card-overview {
+    background-color: $dark-gray;
+    border-radius: 12px;
+
+    .container-card {
+        padding: 0.75rem;
+        font-size: 14px;
+    }
+}
