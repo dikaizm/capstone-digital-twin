@@ -6,8 +6,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/MIND-ID-Tel-U/mindid-digital-twin/server/pkg/domain"
+	"github.com/MIND-ID-Tel-U/mindid-digital-twin/server/pkg/repository"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"gorm.io/gorm"
 )
 
 type MessageResponse struct {
@@ -17,10 +20,12 @@ type MessageResponse struct {
 type WebSocketConnection struct {
 	Conn      *websocket.Conn
 	SessionID string
+	UserRole  string
 }
 
 type WebSocket struct {
 	Upgrader *websocket.Upgrader
+	User     domain.UserRepository
 }
 
 var connections = make(map[string]*WebSocketConnection)
@@ -29,7 +34,11 @@ func GetConnections() map[string]*WebSocketConnection {
 	return connections
 }
 
-func NewWebSocket(clientHost string, clientPort int) *WebSocket {
+func NewWebSocket(
+	clientHost string,
+	clientPort int,
+	db *gorm.DB,
+) *WebSocket {
 	clientAddress := fmt.Sprintf("%s:%d", clientHost, clientPort)
 
 	upgrader := &websocket.Upgrader{
@@ -48,7 +57,10 @@ func NewWebSocket(clientHost string, clientPort int) *WebSocket {
 		},
 	}
 
-	return &WebSocket{Upgrader: upgrader}
+	return &WebSocket{
+		Upgrader: upgrader,
+		User:     repository.NewUserRepository(db),
+	}
 }
 
 func (ws *WebSocket) WebSocketConn(c *gin.Context) {
@@ -61,12 +73,25 @@ func (ws *WebSocket) WebSocketConn(c *gin.Context) {
 
 	// Get session ID from URL query string
 	sessionID := c.Query("session")
+	username := c.Query("username")
 
-	currentConn := &WebSocketConnection{Conn: conn, SessionID: sessionID}
+	role, err := ws.User.GetRoleByUsername(c, username)
+
+	if err != nil {
+		log.Printf("%s, error while getting role from session ID\n", err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	currentConn := &WebSocketConnection{Conn: conn, SessionID: sessionID, UserRole: role}
 	connections[sessionID] = currentConn // Storing connection based on session ID
 }
 
-func WebSocketHandler(conn *WebSocketConnection, payload interface{}) {
+func WebSocketHandler(conn *WebSocketConnection, payload domain.TransformPayload) {
+	if conn.UserRole == "level1" {
+		payload.Value = 0
+	}
+
 	json, err := json.Marshal(payload)
 	if err != nil {
 		log.Fatalf("Failed to convert data to json: %v", err)

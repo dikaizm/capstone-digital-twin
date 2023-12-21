@@ -39,7 +39,11 @@ func App() *Application {
 	app.Server.Use(cors.New(corsConfig))
 
 	// Initialize WebSocket server
-	app.WebSocket = controller.NewWebSocket(app.Env.ClientHost, app.Env.ClientPort)
+	app.WebSocket = controller.NewWebSocket(
+		app.Env.ClientHost,
+		app.Env.ClientPort,
+		app.DB,
+	)
 
 	return app
 }

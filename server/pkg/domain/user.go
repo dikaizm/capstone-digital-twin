@@ -35,4 +35,9 @@ type UserRepository interface {
 	Create(ctx context.Context, user *User) error
 	FindByID(ctx context.Context, id int) (user User, err error)
 	FindByUsername(ctx context.Context, username string) (user UserWithRole, err error)
+	GetRoleByUsername(ctx context.Context, username string) (role string, err error)
+}
+
+type UserUseCase interface {
+	GetUserRole(ctx context.Context, username string) (string, error)
 }

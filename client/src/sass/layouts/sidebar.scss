@@ -1,8 +1,8 @@
 @use "../../sass/default" as *;
 
 #sidebar {
-    background-color: $dark;
-    border-right: 1px solid $dark-gray;
+    background-color: $primary;
+    border-right: 1px solid $primary-gray;
     position: fixed;
     left: 0;
     top: 0;
@@ -14,7 +14,7 @@
         top: auto;
         bottom: 0;
         height: 5rem;
-        border-top: 1px solid $dark-gray;
+        border-top: 1px solid $primary-gray;
         border-right: none;
     }
 
@@ -64,12 +64,12 @@
 
             &.menu-active {
                 color: white;
-                background-color: $dark-gray;
+                background-color: $primary-gray;
             }
 
             &:hover {
                 color: white;
-                background-color: $dark-gray;
+                background-color: $primary-gray;
             }
 
             .menu-label {
@@ -95,7 +95,7 @@
             }
 
             &.search {
-                background-color: $dark-gray;
+                background-color: $primary-gray;
             }
 
             .wrapper {

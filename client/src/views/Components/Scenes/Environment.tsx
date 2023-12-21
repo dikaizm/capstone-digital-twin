@@ -6,7 +6,7 @@ import {
 export const Environment = memo(() => (
   <>
     {/* <color args={['#282B39']} attach="background" /> */}
-    <color args={['#393939']} attach="background" />
+    <color args={['#bec2ca']} attach="background" />
     <EnvironmentImpl preset="city" />
   </>
 ))

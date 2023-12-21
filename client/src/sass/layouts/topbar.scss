@@ -19,6 +19,7 @@ $left-active: 16rem;
 
 #topbar-title {
   @extend .topbar-left;
+  color: black;
   top: 1.2rem;
 
   .header-title {
@@ -32,6 +33,7 @@ $left-active: 16rem;
   z-index: 40;
   top: 1.5rem;
   right: 2.5rem;
+  color: black;
 
   @media screen and (max-width: $screen-sm) {
     right: 1rem;

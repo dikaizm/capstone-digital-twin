@@ -33,7 +33,7 @@ const useData = () => {
 const DataProvider = ({ children }: DataProviderProps) => {
   const socketRef = useRef<WebSocket | null>(null);
   const [data, setData] = useState(InitialDataField)
-  const { session } = useContext(AuthContext)
+  const { session, username } = useContext(AuthContext)
   const { addNotification } = useNotification()
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
     }
 
     if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-      socketRef.current = new WebSocket(`${wsUrl()}?session=${session}`);
+      socketRef.current = new WebSocket(`${wsUrl()}?session=${session}&username=${username}`);
 
       socketRef.current.addEventListener('open', () => {
         toast.success('WebSocket connection ' + 'success')

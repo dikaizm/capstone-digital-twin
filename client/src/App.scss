@@ -1,3 +1,5 @@
+@use "./sass/default" as *;
+
 /* App styles */
 .tooltip-container {
   width: 10rem;
@@ -35,5 +37,5 @@ svg.icon {
 }
 
 .bg-scene {
-  background: #1A1C25;
+  background: $light-gray;
 }

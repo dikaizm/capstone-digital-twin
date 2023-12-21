@@ -1,3 +1,10 @@
+export const UserRole = {
+  ADMIN: "admin",
+  LEVEL1: "level1",
+  LEVEL2: "level2",
+  LEVEL3: "level3",
+}
+
 const equipments = {
   CONVEYOR: "Conveyor",
   UT: "UT",

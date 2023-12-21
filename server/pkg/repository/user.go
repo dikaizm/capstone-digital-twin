@@ -38,3 +38,16 @@ func (c *userDatabase) FindByUsername(ctx context.Context, username string) (use
 
 	return user, err
 }
+
+func (c *userDatabase) GetRoleByUsername(ctx context.Context, username string) (role string, err error) {
+	query := `
+	SELECT ur.role_name
+	FROM users AS u
+	JOIN user_roles AS ur
+	ON u.role_id = ur.id
+	WHERE u.username = ?
+	`
+	err = c.DB.Raw(query, username).Scan(&role).Error
+
+	return role, err
+}

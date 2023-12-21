@@ -41,30 +41,37 @@ func SetupAutoMigrate(db *gorm.DB) error {
 }
 
 func InitiateData(db *gorm.DB) {
+	var count int64
+	db.Model(&domain.UserRole{}).Count(&count)
+	if count > 0 {
+		fmt.Println("Initial roles already exist in the database")
+		return
+	}
+
 	initial_role_levels := []domain.UserRole{
 		{
 			RoleName:     "admin",
-			AccessStatus: false,
-			AccessStream: false,
-			AccessLog:    false,
+			AccessStatus: true,
+			AccessStream: true,
+			AccessLog:    true,
 		},
 		{
 			RoleName:     "level1",
-			AccessStatus: false,
+			AccessStatus: true,
 			AccessStream: false,
 			AccessLog:    false,
 		},
 		{
 			RoleName:     "level2",
-			AccessStatus: false,
-			AccessStream: false,
+			AccessStatus: true,
+			AccessStream: true,
 			AccessLog:    false,
 		},
 		{
 			RoleName:     "level3",
-			AccessStatus: false,
-			AccessStream: false,
-			AccessLog:    false,
+			AccessStatus: true,
+			AccessStream: true,
+			AccessLog:    true,
 		},
 	}
 
@@ -77,6 +84,21 @@ func InitiateData(db *gorm.DB) {
 			Username: "admin",
 			Password: "administrator",
 			RoleID:   initial_role_levels[0].ID,
+		},
+		{
+			Username: "director",
+			Password: "In4lum123",
+			RoleID:   initial_role_levels[1].ID,
+		},
+		{
+			Username: "supervisor",
+			Password: "In4lum123",
+			RoleID:   initial_role_levels[2].ID,
+		},
+		{
+			Username: "operator",
+			Password: "In4lum123",
+			RoleID:   initial_role_levels[3].ID,
 		},
 	}
 

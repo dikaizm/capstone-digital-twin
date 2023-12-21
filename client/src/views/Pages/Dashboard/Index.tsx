@@ -21,32 +21,6 @@ DefaultLoadingManager.addHandler(/\.dds$/i, new DDSLoader())
 export default function Dashboard() {
   const { displayState } = useDisplay()
 
-  // console.log(data);
-
-  // const [windowOpen, setWindowOpen] = useState<WindowOpenProps>(InitialWindowOpen)
-
-  // const [windowOpenKey, setWindowOpenKey] = useState<string[]>([])
-
-  // Handle maximum 2 windows open
-  // useEffect(() => {
-  //   const newKey = Object.keys(objectState).find(
-  //     (key) => objectState[key].isOpen && !windowOpen[key]
-  //   );
-
-  //   if (newKey && !windowOpenKey.includes(newKey)) {
-  //     if (windowOpenKey.length < 2) {
-  //       setWindowOpenKey((prev) => [...prev, newKey]);
-  //       setWindowOpen((prev) => ({ ...prev, [newKey]: true }));
-  //     } else {
-  //       const [oldestWindowKey, ...restWindowKeys] = windowOpenKey;
-  //       if (newKey === lastClickedObj) {
-  //         setWindowOpenKey([...restWindowKeys, newKey]);
-  //         setWindowOpen((prev) => ({ ...prev, [newKey]: true, [oldestWindowKey]: false }));
-  //       }
-  //     }
-  //   }
-  // }, [lastClickedObj, objectState, windowOpen, windowOpenKey])
-
   return (
     <AuthenticatedLayout>
       <Head title="Dashboard" />

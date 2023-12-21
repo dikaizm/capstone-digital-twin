@@ -16,20 +16,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type Payload struct {
-	TagName     string `json:"tag_name"`
-	Value       string `json:"value"`
-	Timestamp   string `json:"timestamp"`
-	PLC         string `json:"plc"`
-	MessageType string `json:"message_type"`
-}
-
-type TransformPayload struct {
-	EquipmentName string      `json:"equipment_name"`
-	TagName       string      `json:"tag_name"`
-	Value         interface{} `json:"value"`
-}
-
 var (
 	inColor = color.New(color.FgCyan).SprintFunc()
 )
@@ -98,7 +84,7 @@ func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *
 
 	// log.Printf("%s %s", inColor("Received message:"), string(msg.Body))
 
-	payload := &Payload{}
+	payload := &domain.Payload{}
 	if err := json.Unmarshal(msg.Body, &payload); err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -113,7 +99,7 @@ func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *
 		pr := repository.NewParameterRepository(db)
 		param := pr.GetParameterByTagAndPLC(*params, tagName, plc)
 
-		transformPayload := TransformPayload{
+		transformPayload := domain.TransformPayload{
 			EquipmentName: param.EquipmentName,
 			TagName:       param.TagName,
 		}
@@ -132,6 +118,15 @@ func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *
 			}
 
 			transformPayload.Value = math.Round(floatValue*100) / 100
+		}
+
+		// Get equipment status based on value
+		if transformPayload.Value == nil {
+			transformPayload.Status = 3
+		} else if transformPayload.Value == 0 {
+			transformPayload.Status = 2
+		} else {
+			transformPayload.Status = 1
 		}
 
 		for _, conn := range *connections {

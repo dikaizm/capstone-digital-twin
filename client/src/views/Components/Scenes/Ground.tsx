@@ -25,12 +25,12 @@ export default function Ground({ position = [0, 0], size = 500 }: GroundProps): 
       >
         <planeGeometry attach="geometry" args={[size, size]} />
         <shadowMaterial attach="material" opacity={60} />
-        <meshPhongMaterial attach="material" color={0x393939} />
+        <meshPhongMaterial attach="material" color={0xdbdee8} />
         {/* <meshStandardMaterial attach="material" color={0x393939} /> */}
       </mesh>
 
       <mesh position={[0, 0.2, 0]}>
-        <gridHelper args={[size, 40, 0x3B404B, 0x3B404B]} />
+        <gridHelper args={[size, 40, 0x808691, 0x808691]} />
       </mesh>
     </group>
   )

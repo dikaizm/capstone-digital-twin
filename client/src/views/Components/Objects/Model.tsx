@@ -12,12 +12,12 @@ export default function Model({ objPath, mtlPath }: ModelProps) {
     const [obj, setObj] = useState<Object3D>()
 
     const mtl = useLoader(MTLLoader, mtlPath)
-    mtl.preload()
+    // mtl.preload()
 
     useEffect(() => {
         const loadModel = async () => {
             const obj = new OBJLoader()
-            obj.setMaterials(mtl)
+            // obj.setMaterials(mtl)
 
             const loadedObj = await new Promise<Object3D>((resolve) => {
                 obj.load(objPath, (o) => {
