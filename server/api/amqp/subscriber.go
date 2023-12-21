@@ -122,11 +122,11 @@ func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *
 
 		// Get equipment status based on value
 		if transformPayload.Value == nil {
-			transformPayload.Status = 3
-		} else if transformPayload.Value == 0 {
 			transformPayload.Status = 2
-		} else {
+		} else if transformPayload.Value != 0 || transformPayload.Value == "ON" {
 			transformPayload.Status = 1
+		} else {
+			transformPayload.Status = 0
 		}
 
 		for _, conn := range *connections {
