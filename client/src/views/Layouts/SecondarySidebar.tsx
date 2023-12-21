@@ -3,18 +3,18 @@ import { ResizableBox, ResizeHandle } from "react-resizable"
 import "@sass/layouts/secondarySidebar.scss"
 
 import CardOverview from "@Components/Cards/CardOverview"
-import { SIREquipmentDetail } from "../Components/Objects/SirDegasser";
 import { ForwardedRef, ReactElement, RefObject, forwardRef, useEffect, useState } from "react";
 import { VDCEquipmentDetail } from "../Components/Objects/VDC";
-import { SawingEquipmentDetail } from "../Components/Objects/SawingMachine";
 import { HomogenizingEquipmentDetail } from "../Components/Objects/Homogenezing";
 import { useData } from "@/context/DataContext";
-import { Furnace10FEquipmentDetail, Furnace9FEquipmentDetail } from "../Components/Objects/Furnace";
 import { CoolingOneEquipmentDetail, CoolingTwoEquipmentDetail } from "../Components/Objects/Cooling";
-import { StillageOneEquipmentDetail, StillageTwoEquipmentDetail } from "../Components/Objects/Stillage";
-import { SawingEntryEquipmentDetail } from "../Components/Objects/SawingEntrySystem";
-import { ConveyorEquipmentDetail } from "../Components/Objects/Conveyor";
-import { UTEquipmentDetail } from "../Components/Objects/Ut";
+// import { StillageOneEquipmentDetail, StillageTwoEquipmentDetail } from "../Components/Objects/Stillage";
+// import { SawingEquipmentDetail } from "../Components/Objects/SawingMachine";
+// import { SIREquipmentDetail } from "../Components/Objects/SirDegasser";
+// import { Furnace10FEquipmentDetail, Furnace9FEquipmentDetail } from "../Components/Objects/Furnace";
+// import { SawingEntryEquipmentDetail } from "../Components/Objects/SawingEntrySystem";
+// import { ConveyorEquipmentDetail } from "../Components/Objects/Conveyor";
+// import { UTEquipmentDetail } from "../Components/Objects/Ut";
 
 interface SecondarySidebarProps {
   state: boolean;
@@ -91,14 +91,14 @@ export default function SecondarySidebar({ state }: SecondarySidebarProps) {
    * @type {Array<EquipmentsProps>}
    */
   const equipments: EquipmentsProps[] = [
-    {
-      component: <ConveyorEquipmentDetail data={data.conveyor} type={OVERVIEW} />,
-      data: data.conveyor
-    },
-    {
-      component: <UTEquipmentDetail data={data.ut} type={OVERVIEW} />,
-      data: data.ut
-    },
+    // {
+    //   component: <ConveyorEquipmentDetail data={data.conveyor} type={OVERVIEW} />,
+    //   data: data.conveyor
+    // },
+    // {
+    //   component: <UTEquipmentDetail data={data.ut} type={OVERVIEW} />,
+    //   data: data.ut
+    // },
     {
       component: <CoolingOneEquipmentDetail data={data.coolingOne} type={OVERVIEW} />,
       data: data.coolingOne
@@ -107,42 +107,42 @@ export default function SecondarySidebar({ state }: SecondarySidebarProps) {
       component: <CoolingTwoEquipmentDetail data={data.coolingTwo} type={OVERVIEW} />,
       data: data.coolingTwo
     },
+    // {
+    //   component: <Furnace9FEquipmentDetail data={data.furnace9F} type={OVERVIEW} />,
+    //   data: data.furnace9F
+    // },
+    // {
+    //   component: <Furnace10FEquipmentDetail data={data.furnace10F} type={OVERVIEW} />,
+    //   data: data.furnace10F
+    // },
     {
-      component: <Furnace9FEquipmentDetail data={data.furnace9F} type={OVERVIEW} />,
-      data: data.furnace9F
-    },
-    {
-      component: <Furnace10FEquipmentDetail data={data.furnace10F} type={OVERVIEW} />,
-      data: data.furnace10F
+      component: <VDCEquipmentDetail data={data.vdc} type={OVERVIEW} />,
+      data: data.vdc
     },
     {
       component: <HomogenizingEquipmentDetail data={data.homogenizing} type={OVERVIEW} />,
       data: data.homogenizing
     },
-    {
-      component: <SIREquipmentDetail data={data.sir} type={OVERVIEW} />,
-      data: data.sir
-    },
-    {
-      component: <SawingEquipmentDetail data={data.sawing} type={OVERVIEW} />,
-      data: data.sawing
-    },
-    {
-      component: <SawingEntryEquipmentDetail data={data.sawingEntry} type={OVERVIEW} />,
-      data: data.sawingEntry
-    },
-    {
-      component: <StillageOneEquipmentDetail data={data.stillageOne} type={OVERVIEW} />,
-      data: data.stillageOne
-    },
-    {
-      component: <StillageTwoEquipmentDetail data={data.stillageTwo} type={OVERVIEW} />,
-      data: data.stillageTwo
-    },
-    {
-      component: <VDCEquipmentDetail data={data.vdc} type={OVERVIEW} />,
-      data: data.vdc
-    },
+    // {
+    //   component: <SIREquipmentDetail data={data.sir} type={OVERVIEW} />,
+    //   data: data.sir
+    // },
+    // {
+    //   component: <SawingEquipmentDetail data={data.sawing} type={OVERVIEW} />,
+    //   data: data.sawing
+    // },
+    // {
+    //   component: <SawingEntryEquipmentDetail data={data.sawingEntry} type={OVERVIEW} />,
+    //   data: data.sawingEntry
+    // },
+    // {
+    //   component: <StillageOneEquipmentDetail data={data.stillageOne} type={OVERVIEW} />,
+    //   data: data.stillageOne
+    // },
+    // {
+    //   component: <StillageTwoEquipmentDetail data={data.stillageTwo} type={OVERVIEW} />,
+    //   data: data.stillageTwo
+    // },
   ]
 
   return (

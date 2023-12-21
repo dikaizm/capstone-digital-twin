@@ -33,7 +33,7 @@ export default function Dashboard() {
             <div className="circleCell" />
           </div>
 
-          <span>Sedang memuat model...</span>
+          <span className="text-black">Sedang memuat model...</span>
         </div>
       }>
         <Canvas frameloop="demand" shadows>

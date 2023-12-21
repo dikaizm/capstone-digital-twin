@@ -32,7 +32,7 @@ func MigrateMySQL(db *gorm.DB) error {
 		&domain.User{},
 		&domain.UserSession{},
 		&domain.Equipment{},
-		&domain.Parameter{},
+		// &domain.Parameter{},
 	)
 	if err != nil {
 		return err

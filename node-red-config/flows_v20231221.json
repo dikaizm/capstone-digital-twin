@@ -1,0 +1,862 @@
+[
+    {
+        "id": "3eaaa4d3de21a929",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "79b7e9f5a478e2d9",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 640,
+        "wires": [
+            [
+                "49af01de8fa2d24e"
+            ]
+        ]
+    },
+    {
+        "id": "49af01de8fa2d24e",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 1",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1 }`\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"rc:3:I.Ch1Data\", \"value\":randValInt},\n    {\"tag_name\":\"rc:7:I.Ch0Data\", \"value\":randValFloat},\n    {\"tag_name\":\"rc:10:O.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"PressureEjector_AO.SP\", \"value\":randValFloat},\n    {\"tag_name\":\"X_Rotor1_U1:I.TorqueCurrent\", \"value\":randValInt},\n    {\"tag_name\":\"X_Rotor2_U2:I.TorqueCurrent\", \"value\":randValInt},\n    {\"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\":randValFloat},\n    {\"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\":randValFloat},\n    {\"tag_name\": \"rc:5:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\": \"rc:4:I.Ch0Data\", \"value\":randValInt},\n];\n\n// Shuffle the array randomly\nvar data = inputData[0]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "955b15aa3b9dbfbb",
+        "type": "debug",
+        "z": "3eaaa4d3de21a929",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "9ea8346caf08ca2a",
+        "type": "amqp-out",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "broker": "2a75dbc71313fc93",
+        "exchangeName": "inalum",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "InalumDTp4ss",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 1220,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "58896b59038a43cd",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 2",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[1]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 700,
+        "wires": [
+            [
+                "4dcbca2baf2a7583"
+            ]
+        ]
+    },
+    {
+        "id": "fc3595365f43586a",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 700,
+        "wires": [
+            [
+                "58896b59038a43cd"
+            ]
+        ]
+    },
+    {
+        "id": "cefaa1173a0745b6",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 3",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[2]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 760,
+        "wires": [
+            [
+                "4dcbca2baf2a7583"
+            ]
+        ]
+    },
+    {
+        "id": "fdd16e4626c764b3",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "8",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 760,
+        "wires": [
+            [
+                "cefaa1173a0745b6"
+            ]
+        ]
+    },
+    {
+        "id": "051d66e0a415ea7d",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 4",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[3]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 820,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "46e60e0c50d790fc",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 820,
+        "wires": [
+            [
+                "051d66e0a415ea7d"
+            ]
+        ]
+    },
+    {
+        "id": "979b5e1efc88827b",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 5",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[4]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 880,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "8e973e22dd1e7435",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 880,
+        "wires": [
+            [
+                "979b5e1efc88827b"
+            ]
+        ]
+    },
+    {
+        "id": "c828e9ac1ba8bf26",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 6",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[5]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 940,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "31d9857792614c45",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 940,
+        "wires": [
+            [
+                "c828e9ac1ba8bf26"
+            ]
+        ]
+    },
+    {
+        "id": "f63f449b30200f4d",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 7",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[6]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1000,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "2c2da315be88b2c2",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1000,
+        "wires": [
+            [
+                "f63f449b30200f4d"
+            ]
+        ]
+    },
+    {
+        "id": "9b8c47f0824289a1",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 8",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[7]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1060,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "a99b727c688c816b",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1060,
+        "wires": [
+            [
+                "9b8c47f0824289a1"
+            ]
+        ]
+    },
+    {
+        "id": "54d453d56f18ee83",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 9",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[8]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4544bb413eeac2d9",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1120,
+        "wires": [
+            [
+                "54d453d56f18ee83"
+            ]
+        ]
+    },
+    {
+        "id": "b1b846917999c032",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 10",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[9]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1180,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "17b67f76581df5f6",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1180,
+        "wires": [
+            [
+                "b1b846917999c032"
+            ]
+        ]
+    },
+    {
+        "id": "e023bfac1412856a",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 11",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[10]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1240,
+        "wires": [
+            [
+                "133e6a5d2a3d1542"
+            ]
+        ]
+    },
+    {
+        "id": "b981196aba8c11c8",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "4",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1240,
+        "wires": [
+            [
+                "e023bfac1412856a"
+            ]
+        ]
+    },
+    {
+        "id": "c58fe76ba05fbef1",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 12",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[11]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a86322ea8ad704cb",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1300,
+        "wires": [
+            [
+                "c58fe76ba05fbef1"
+            ]
+        ]
+    },
+    {
+        "id": "39df9f440aa68e9d",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "generate random data 13",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1}`\n\n// Array of data to be shuffled\nvar inputData = [\n    { \"tag_name\": \"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:3:I.Ch1Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:7:I.Ch0Data\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:10:O.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"PressureEjector_AO.SP\", \"value\": randValFloat },\n    { \"tag_name\": \"X_Rotor1_U1:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"X_Rotor2_U2:I.TorqueCurrent\", \"value\": randValInt },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR1\", \"value\": randValFloat },\n    { \"tag_name\": \"SIR_PV_OperatingHoursR2\", \"value\": randValFloat },\n    { \"tag_name\": \"rc:5:I.Ch0Data\", \"value\": randValInt },\n    { \"tag_name\": \"rc:4:I.Ch0Data\", \"value\": randValInt },\n];\n\n// Shuffle the array randomly\nvar data = inputData[12]\n\n// Send the shuffled data to the next node\nmsg.payload = data;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c4036e1bd644e3d3",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1360,
+        "wires": [
+            [
+                "39df9f440aa68e9d"
+            ]
+        ]
+    },
+    {
+        "id": "9e1fbd73642ab4f8",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "plc",
+        "func": "msg.payload[\"message_type\"] = \"plc\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 1000,
+        "wires": [
+            [
+                "955b15aa3b9dbfbb",
+                "9ea8346caf08ca2a"
+            ]
+        ]
+    },
+    {
+        "id": "4dcbca2baf2a7583",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "plc1",
+        "func": "msg.payload[\"plc\"] = \"plc1\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 700,
+        "wires": [
+            [
+                "9e1fbd73642ab4f8"
+            ]
+        ]
+    },
+    {
+        "id": "133e6a5d2a3d1542",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "plc2",
+        "func": "msg.payload[\"plc\"] = \"plc2\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1100,
+        "wires": [
+            [
+                "9e1fbd73642ab4f8"
+            ]
+        ]
+    },
+    {
+        "id": "e56c30d28b11a2c5",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "VDC Equipment",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length-1)\n\n    return array[randIdx]\n}\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1 }`\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\":randValFloat}\n];\n\n// Shuffle the array randomly\nvar randomData = getRandom(inputData);\n\n// Send the shuffled data to the next node\nmsg.payload = randomData;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "4dcbca2baf2a7583"
+            ]
+        ]
+    },
+    {
+        "id": "2d2d39abd47c9afd",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "5s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 560,
+        "wires": [
+            [
+                "e56c30d28b11a2c5"
+            ]
+        ]
+    },
+    {
+        "id": "1d9bbbbcc792f65c",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "Sawing Station",
+        "func": "/**\n* @param {string | any[]} array\n*/\n\nconst randValInt = `${Math.floor(Math.random() * 100) + 1}`\nconst randValFloat = `${Math.random() * 100 + 1 }`\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_Cut_currentMeasured\", \"value\":randValInt},\n];\n\n// Shuffle the array randomly\nvar randomData = inputData[0];\n\n// Send the shuffled data to the next node\nmsg.payload = randomData;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1420,
+        "wires": [
+            [
+                "fe679ba09b5c9558"
+            ]
+        ]
+    },
+    {
+        "id": "fe679ba09b5c9558",
+        "type": "function",
+        "z": "3eaaa4d3de21a929",
+        "name": "plc3",
+        "func": "msg.payload[\"plc\"] = \"plc3\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1300,
+        "wires": [
+            [
+                "9e1fbd73642ab4f8"
+            ]
+        ]
+    },
+    {
+        "id": "f968a5df33cf5b0c",
+        "type": "inject",
+        "z": "3eaaa4d3de21a929",
+        "name": "3s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1420,
+        "wires": [
+            [
+                "1d9bbbbcc792f65c"
+            ]
+        ]
+    },
+    {
+        "id": "2a75dbc71313fc93",
+        "type": "amqp-broker",
+        "name": "RabbitMQ",
+        "host": "localhost",
+        "port": "5672",
+        "vhost": "",
+        "tls": false,
+        "credsFromSettings": false
+    }
+]

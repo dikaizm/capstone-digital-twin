@@ -6,12 +6,14 @@ import (
 )
 
 type UserSession struct {
-	SessionID    string    `json:"session_id" gorm:"primaryKey"`
-	UserID       int       `json:"user_id" gorm:"not null"`
+	SessionID    string    `json:"session_id" gorm:"primaryKey;index"`
+	UserID       int       `json:"user_id" gorm:"not null;index"`
 	RefreshToken string    `json:"refresh_token" gorm:"not null"`
 	ExpireAt     time.Time `json:"expire_at" gorm:"not null"`
 	LoggedIn     time.Time `json:"logged_in" gorm:"not null"`
 	LastActive   time.Time `json:"last_active" gorm:"null"`
+
+	User User `gorm:"foreignKey:UserID;references:ID"`
 }
 
 type AuthRepository interface {
