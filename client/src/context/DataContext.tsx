@@ -10,6 +10,7 @@ interface MessageProps {
   equipment_name: string;
   tag_name: string;
   value: number;
+  status: number;
 }
 
 type DataProviderProps = {
@@ -59,6 +60,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
           ...prevData,
           [message.key]: {
             ...prevData[message.key],
+            status: message.status,
             tag: {
               ...prevData[message.key]?.tag,
               [message.tag_name]: {
@@ -75,7 +77,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
         addNotification("WebSocket connection " + 'closed ❌')
       });
     }
-  }, [session, data, addNotification]);
+  }, [session, data, addNotification, username]);
 
   return (
     <WebSocketContext.Provider value={{ data }}>

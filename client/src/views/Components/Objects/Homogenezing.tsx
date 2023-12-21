@@ -105,7 +105,7 @@ type EquipmentDetailProps = {
 export function HomogenizingEquipmentDetail({ data, type }: EquipmentDetailProps) {
   return (
     <EquipmentLayout data={[
-      data.tag?.GL_STACK_BF1_pos1TotalNoLogs,
+      // data.tag?.GL_STACK_BF1_pos1TotalNoLogs,
       data.tag?.GL_BF1_ProcData_furn1Z1L_airTemp,
       data.tag?.GL_BF1_ProcData_furn1Z1R_airTemp,
       data.tag?.GL_BF1_ProcData_furn1Z2L_airTemp,

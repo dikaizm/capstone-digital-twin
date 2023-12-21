@@ -54,6 +54,7 @@ export const Status = {
 
 const InitialCoolingOneData: CoolingOneDataProps = {
   equipmentName: equipments.COOLING_ONE,
+  status: 0,
   tag: {
     GL_HMI_ACT_ACS1_logTempL: {
       tagName: 'GL_HMI_ACT_ACS1_logTempL',
@@ -81,6 +82,7 @@ const InitialCoolingOneData: CoolingOneDataProps = {
 
 const initialCoolingTwoData: CoolingTwoDataProps = {
   equipmentName: equipments.COOLING_TWO,
+  status: 0,
   tag: {
     GL_HMI_ACT_ACS2_logTempL: {
       tagName: 'GL_HMI_ACT_ACS2_logTempL',
@@ -108,6 +110,7 @@ const initialCoolingTwoData: CoolingTwoDataProps = {
 
 const InitialFurnace9FData: Furnace9FDataProps = {
   equipmentName: equipments.FURNACE_9F,
+  status: 0,
   tag: {
     'LSYS_E2_IO_Cabinet_Launder:1:I.Ch0Data': {
       tagName: 'LSYS_E2_IO_Cabinet_Launder:1:I.Ch0Data',
@@ -121,6 +124,7 @@ const InitialFurnace9FData: Furnace9FDataProps = {
 
 const InitialFurnace10FData: Furnace10FDataProps = {
   equipmentName: equipments.FURNACE_10F,
+  status: 0,
   tag: {
     'LSYS_E2_IO_Cabinet_Launder:2:I.Ch0Data': {
       tagName: 'LSYS_E2_IO_Cabinet_Launder:2:I.Ch0Data',
@@ -134,6 +138,7 @@ const InitialFurnace10FData: Furnace10FDataProps = {
 
 const InitialSIRData: SIRDataProps = {
   equipmentName: equipments.SIR,
+  status: 0,
   tag: {
     'rc:3:I.Ch1Data': {
       tagName: 'rc:3:I.Ch1Data',
@@ -189,6 +194,7 @@ const InitialSIRData: SIRDataProps = {
 
 const InitialHomogenizingData: HomogenizingDataProps = {
   equipmentName: equipments.HOMOGENIZING,
+  status: 0,
   tag: {
     'GL_STACK_BF1_pos1TotalNoLogs': {
       tagName: 'GL_STACK_BF1_pos1TotalNoLogs',
@@ -273,6 +279,7 @@ const InitialHomogenizingData: HomogenizingDataProps = {
 
 const InitialSawingData: SawingDataProps = {
   equipmentName: equipments.SAWING,
+  status: 0,
   tag: {
     'GL_Cut_currentMeasured': {
       tagName: 'GL_Cut_currentMeasured',
@@ -293,6 +300,7 @@ const InitialSawingData: SawingDataProps = {
 
 const InitialSwarfData: SwarfDataProps = {
   equipmentName: equipments.SWARF,
+  status: 0,
   tag: {
     'DO_QLMP_ctrlOn': {
       tagName: 'DO_QLMP_ctrlOn',
@@ -306,6 +314,7 @@ const InitialSwarfData: SwarfDataProps = {
 
 const InitialVDCData: VDCDataProps = {
   equipmentName: equipments.VDC,
+  status: 0,
   tag: {
     BilletLength: {
       label: "Billet Length",
@@ -364,6 +373,7 @@ const InitialVDCData: VDCDataProps = {
 
 const InitialStillageOneData: StillageOneDataProps = {
   equipmentName: equipments.STILLAGE_ONE,
+  status: 0,
   tag: {
     'LtNoLogs[19]': {
       tagName: 'LtNoLogs[19]',
@@ -377,6 +387,7 @@ const InitialStillageOneData: StillageOneDataProps = {
 
 const InitialStillageTwoData: StillageTwoDataProps = {
   equipmentName: equipments.STILLAGE_TWO,
+  status: 0,
   tag: {
     'LtNoLogs[15]': {
       tagName: 'LtNoLogs[15]',
@@ -390,6 +401,7 @@ const InitialStillageTwoData: StillageTwoDataProps = {
 
 const InitialSawingEntryData: SawingEntryDataProps = {
   equipmentName: equipments.SAWING_ENTRY,
+  status: 0,
   tag: {
     'LtNoLogs[20]': {
       tagName: 'LtNoLogs[20]',
@@ -403,6 +415,7 @@ const InitialSawingEntryData: SawingEntryDataProps = {
 
 const InitialConveyorData: ConveyorDataProps = {
   equipmentName: equipments.CONVEYOR,
+  status: 0,
   tag: {
     'LtNoLogs[0]': {
       tagName: 'LtNoLogs[0]',
@@ -416,6 +429,7 @@ const InitialConveyorData: ConveyorDataProps = {
 
 const InitialUTData: UTDataProps = {
   equipmentName: equipments.UT,
+  status: 0,
   tag: {
     'LtNoLogs[1]': {
       tagName: 'LtNoLogs[1]',
@@ -429,6 +443,7 @@ const InitialUTData: UTDataProps = {
 
 const InitialRodFeederData: RodFeederDataProps = {
   equipmentName: equipments.ROD_FEEDER,
+  status: 0,
   tag: {
     DosisAltib: {
       label: "Dosis Altib",
@@ -441,6 +456,7 @@ const InitialRodFeederData: RodFeederDataProps = {
 
 const InitialCFFData: CFFDataProps = {
   equipmentName: equipments.CFF,
+  status: 0,
   tag: {
     cff: {
       label: "Temperature",
@@ -453,6 +469,7 @@ const InitialCFFData: CFFDataProps = {
 
 const InitialWeighingData: WeighingDataProps = {
   equipmentName: equipments.WEIGHING,
+  status: 0,
   tag: {
     'weighing': {
       label: "Weight",
@@ -465,6 +482,7 @@ const InitialWeighingData: WeighingDataProps = {
 
 const InitialCharginBilletData: EquipmentProps = {
   equipmentName: equipments.CHARGING_BILLET,
+  status: 0,
 }
 
 export const InitialDataField: DataFieldProps = {

@@ -100,7 +100,7 @@ export function CoolingOneEquipmentDetail({ data, type }: EquipmentDetailProps) 
     <EquipmentLayout data={[
       data.tag?.GL_HMI_ACT_ACS1_logTempL,
       data.tag?.GL_HMI_ACT_ACS1_logTempR,
-      data.tag?.GL_STACK_ACS1_pos1TotalNoLogs
+      // data.tag?.GL_STACK_ACS1_pos1TotalNoLogs
     ]} type={type} />
   )
 }
@@ -110,7 +110,7 @@ export function CoolingTwoEquipmentDetail({ data, type }: EquipmentDetailProps) 
     <EquipmentLayout data={[
       data.tag?.GL_HMI_ACT_ACS2_logTempL,
       data.tag?.GL_HMI_ACT_ACS2_logTempR,
-      data.tag?.GL_STACK_ACS2_pos1TotalNoLogs
+      // data.tag?.GL_STACK_ACS2_pos1TotalNoLogs
     ]} type={type} />
   )
 }

@@ -5,11 +5,11 @@ export function useEquipmentLabel(keyId: string, svg: StatusSvgProps) {
 
     const status = data[keyId]?.status
 
-    if (status === 0) {
-        return svg.idle
-    } else if (status === 1) {
+    if (status === 1) {
         return svg.running
-    } else {
+    } else if (status === 2) {
         return svg.warning
+    } else {
+        return svg.idle
     }
 }

@@ -29,7 +29,7 @@ declare global {
 
   interface EquipmentProps {
     equipmentName: string;
-    status?: 0 | 1 | 2;
+    status: number;
   }
 
   interface StatusSvgProps {
@@ -190,6 +190,7 @@ declare global {
 
   interface DataFieldProps {
     [key: string]: EquipmentProps & {
+      status: number;
       tag?: {
         [tag_name: string]: DataProps;
       }

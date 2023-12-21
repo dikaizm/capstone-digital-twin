@@ -1,21 +1,21 @@
 import { useWindowState } from "@/context/WindowStateContext";
 import CardWindow from "../Components/Cards/CardWindow";
 import { HomogenizingEquipmentDetail } from "../Components/Objects/Homogenezing";
-import { SIREquipmentDetail } from "../Components/Objects/SirDegasser";
-import { Furnace10FEquipmentDetail, Furnace9FEquipmentDetail } from "../Components/Objects/Furnace";
+// import { SIREquipmentDetail } from "../Components/Objects/SirDegasser";
+// import { Furnace10FEquipmentDetail, Furnace9FEquipmentDetail } from "../Components/Objects/Furnace";
+// import { ConveyorEquipmentDetail } from "../Components/Objects/Conveyor";
+// import { StillageOneEquipmentDetail, StillageTwoEquipmentDetail } from "../Components/Objects/Stillage";
+// import { UTEquipmentDetail } from "../Components/Objects/Ut";
+// import { SawingEquipmentDetail } from "../Components/Objects/SawingMachine";
+// import { WeighingEquipmentDetail } from "../Components/Objects/Weighing";
+// import { SwarfEquipmentDetail } from "../Components/Objects/SwarfBriquettin";
+// import { SawingEntryEquipmentDetail } from "../Components/Objects/SawingEntrySystem";
+// import { RodFeederEquipmentDetail } from "../Components/Objects/RodFeeder";
 import { VDCEquipmentDetail } from "../Components/Objects/VDC";
-import { ConveyorEquipmentDetail } from "../Components/Objects/Conveyor";
 import { FurnaceIcon } from "../Components/Icons/IconObject";
 import { CoolingOneEquipmentDetail, CoolingTwoEquipmentDetail } from "../Components/Objects/Cooling";
-import { StillageOneEquipmentDetail, StillageTwoEquipmentDetail } from "../Components/Objects/Stillage";
-import { UTEquipmentDetail } from "../Components/Objects/Ut";
-import { SawingEquipmentDetail } from "../Components/Objects/SawingMachine";
-import { WeighingEquipmentDetail } from "../Components/Objects/Weighing";
-import { SwarfEquipmentDetail } from "../Components/Objects/SwarfBriquettin";
 import { useData } from "@/context/DataContext";
 import { JSXElementConstructor } from "react";
-import { SawingEntryEquipmentDetail } from "../Components/Objects/SawingEntrySystem";
-import { RodFeederEquipmentDetail } from "../Components/Objects/RodFeeder";
 
 export default function Windows() {
 
@@ -28,12 +28,12 @@ export default function Windows() {
           keyId="homogenizing"
         />
 
-        <ShowWindow
+        {/* <ShowWindow
           component={SIREquipmentDetail}
           keyId="sir"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={Furnace9FEquipmentDetail}
           keyId="furnace9F"
         />
@@ -41,16 +41,11 @@ export default function Windows() {
         <ShowWindow
           component={Furnace10FEquipmentDetail}
           keyId="furnace10F"
-        />
+        /> */}
 
         <ShowWindow
           component={VDCEquipmentDetail}
           keyId="vdc"
-        />
-
-        <ShowWindow
-          component={ConveyorEquipmentDetail}
-          keyId="conveyor"
         />
 
         <ShowWindow
@@ -63,7 +58,7 @@ export default function Windows() {
           keyId="coolingTwo"
         />
 
-        <ShowWindow
+        {/* <ShowWindow
           component={StillageOneEquipmentDetail}
           keyId="stillageOne"
         />
@@ -71,37 +66,37 @@ export default function Windows() {
         <ShowWindow
           component={StillageTwoEquipmentDetail}
           keyId="stillageTwo"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={UTEquipmentDetail}
           keyId="ut"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={SawingEquipmentDetail}
           keyId="sawing"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={WeighingEquipmentDetail}
           keyId="weighing"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={SwarfEquipmentDetail}
           keyId="swarf"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={SawingEntryEquipmentDetail}
           keyId="sawingEntry"
-        />
+        /> */}
 
-        <ShowWindow
+        {/* <ShowWindow
           component={RodFeederEquipmentDetail}
           keyId="rodFeeder"
-        />
+        /> */}
 
       </div>
     </div >

@@ -80,14 +80,14 @@ type EquipmentDetailProps = {
 export function VDCEquipmentDetail({ data, type }: EquipmentDetailProps) {
   return (
     <EquipmentLayout data={[
-      data.tag?.BilletLength,
+      // data.tag?.BilletLength,
       data.tag?.['CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data'],
-      data.tag?.LevelMetal9F,
-      data.tag?.['CM_E7_Cooling_Water:1:I.Ch0Data'],
-      data.tag?.SpeedCasting,
-      data.tag?.['LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data'],
-      data.tag?.LevelMetal10F,
-      data.tag?.['CM_E5_Casting_Gas_Cabinet:1:I.Ch0Data'],
+      // data.tag?.LevelMetal9F,
+      // data.tag?.['CM_E7_Cooling_Water:1:I.Ch0Data'],
+      // data.tag?.SpeedCasting,
+      // data.tag?.['LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data'],
+      // data.tag?.LevelMetal10F,
+      // data.tag?.['CM_E5_Casting_Gas_Cabinet:1:I.Ch0Data'],
     ]} type={type} />
   )
 }
