@@ -21,7 +21,7 @@ export default function CardWindow({ keyId, label, icon: Icon, children }: CardW
   }
 
   return (
-    <div className="relative border rounded-lg max-w-[100vw] border-slate-500 bg-slate-800 h-fit w-fit">
+    <div id="card-window" className="relative border rounded-2xl max-w-[100vw] border-slate-500 bg-slate-800 h-fit w-fit">
 
       <div className="flex flex-col w-full h-full gap-4 p-5">
 

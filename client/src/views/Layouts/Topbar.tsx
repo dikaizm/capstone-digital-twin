@@ -132,13 +132,13 @@ function NotificationContainer() {
 
   return (
     <div className="absolute right-0 top-10">
-      <div className="flex flex-col overflow-hidden border w-72 max-w-[100vw] rounded-xl border-slate-600 bg-slate-800 drop-shadow-lg">
+      <div className="flex flex-col overflow-hidden border w-72 max-w-[100vw] rounded-xl border-slate-200 bg-white drop-shadow-lg">
         <div className="flex flex-col overflow-y-auto max-h-[calc(24rem-4px)]">
           {notifications && notifications.map((notif, idx) => {
             return (
               <NotificationItem
                 key={idx}
-                color={idx % 2 === 0 ? "bg-slate-700" : "bg-slate-800"}
+                color={idx % 2 === 0 ? "bg-slate-100" : "bg-white"}
                 message={notif.message}
                 datetime={notif.datetime}
               />
@@ -147,7 +147,7 @@ function NotificationContainer() {
         </div>
 
         {notifications.length > 0 && (
-          <div className="flex items-center justify-center transition-colors bg-slate-600 hover:bg-slate-500">
+          <div className="flex items-center justify-center transition-colors bg-slate-300 hover:bg-slate-500">
             <button type="button" className="w-full h-full p-2 text-sm font-medium" onClick={() => clearNotifications()}>Hapus semua</button>
           </div>
         )}

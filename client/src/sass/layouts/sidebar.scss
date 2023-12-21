@@ -63,12 +63,12 @@
             font-weight: 500;
 
             &.menu-active {
-                color: white;
+                color: black;
                 background-color: $primary-gray;
             }
 
             &:hover {
-                color: white;
+                color: black;
                 background-color: $primary-gray;
             }
 
@@ -80,8 +80,8 @@
 
                 span {
                     white-space: nowrap;
-                    background-color: $gray;
-                    color: white;
+                    background-color: $primary-gray;
+                    color: black;
                     padding: 4px 8px;
                     border-radius: 8px;
                     font-size: 14px;
