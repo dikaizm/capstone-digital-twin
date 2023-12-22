@@ -4,10 +4,9 @@ import ApplicationLogo from "@Components/ApplicationLogo";
 import ArrowIcon from '@Icons/Arrow';
 import { ElementType, MouseEventHandler, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Logout, OptionDots, Profile, Billet, ProfileEdit } from "../Components/Icons/IconSidebar";
+import { Logout, OptionDots, Profile, Billet } from "../Components/Icons/IconSidebar";
 import axios from "axios";
 import { apiUrl } from "@/config";
-import { useAuth } from "@/context/AuthContext";
 
 interface SidebarProps {
   user: {

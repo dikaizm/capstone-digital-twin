@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import Sidebar from '@Layouts/Sidebar';
 import Topbar from '@Layouts/Topbar';
 import SecondarySidebar from '@Layouts/SecondarySidebar';
-import { AuthContext, useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 
 interface UserProps {
   name: string;
