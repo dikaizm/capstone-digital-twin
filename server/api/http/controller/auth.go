@@ -111,6 +111,7 @@ func (ac *AuthController) Logout(c *gin.Context) {
 func (ac *AuthController) CreateUserSession(c *gin.Context, user *domain.UserWithRole) {
 	tokenReq := &domain.GenerateTokenRequest{
 		Username: user.Username,
+		UserRole: user.RoleName,
 		UserID:   user.ID,
 	}
 

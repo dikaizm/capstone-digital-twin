@@ -78,13 +78,20 @@ func (ws *WebSocket) WebSocketConn(c *gin.Context) {
 	role, err := ws.User.GetRoleByUsername(c, username)
 
 	if err != nil {
-		log.Printf("%s, error while getting role from session ID\n", err.Error())
+		log.Printf("%s, error while getting role from user ID\n", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	currentConn := &WebSocketConnection{Conn: conn, SessionID: sessionID, UserRole: role}
+	currentConn := &WebSocketConnection{
+		Conn:      conn,
+		SessionID: sessionID,
+		UserRole:  role,
+	}
+
 	connections[sessionID] = currentConn // Storing connection based on session ID
+
+	log.Printf("WebSocket connection established for session %s, user %s\n", sessionID, username)
 }
 
 func WebSocketHandler(conn *WebSocketConnection, payload domain.TransformPayload) {

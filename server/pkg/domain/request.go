@@ -13,6 +13,7 @@ type SignUpRequest struct {
 
 type GenerateTokenRequest struct {
 	Username  string
+	UserRole  string
 	SessionID string
 	UserID    int
 }

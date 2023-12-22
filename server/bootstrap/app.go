@@ -22,7 +22,7 @@ func App() *Application {
 	app := &Application{}
 	app.Env = NewEnv()
 
-	// Initialize HTTP server
+	// Initialize the Gin server
 	app.Server = gin.Default()
 	app.Server.ForwardedByClientIP = true
 	app.Server.SetTrustedProxies([]string{app.Env.ServerHost})
@@ -37,13 +37,6 @@ func App() *Application {
 	corsConfig.AddAllowMethods("OPTIONS")
 
 	app.Server.Use(cors.New(corsConfig))
-
-	// Initialize WebSocket server
-	app.WebSocket = controller.NewWebSocket(
-		app.Env.ClientHost,
-		app.Env.ClientPort,
-		app.DB,
-	)
 
 	return app
 }

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useCallback, ReactNode } from "react";
+import { createContext, useState, useEffect, useCallback, ReactNode, useContext } from "react";
 import axios, { AxiosInstance, isAxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 type AuthContextProps = {
   username: string;
+  role: string;
   session: string;
   token: string;
   expire: number;
@@ -20,12 +21,14 @@ type AuthProviderProps = {
 
 type DecodedProps = {
   username: string;
+  user_role: string;
   session_id: string;
   exp: number;
 }
 
 const AuthContext = createContext<AuthContextProps>({
   username: '',
+  role: "",
   session: '',
   token: '',
   expire: 0,
@@ -36,6 +39,7 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
   const navigate: NavigateFunction = useNavigate();
 
   const [username, setUsername] = useState<string>("")
+  const [role, setRole] = useState<string>("")
   const [session, setSession] = useState<string>("")
   const [token, setToken] = useState<string>("")
   const [expire, setExpire] = useState<number>(0)
@@ -56,6 +60,7 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
             const decoded: DecodedProps = jwtDecode(response.data.accessToken);
 
             setUsername(decoded.username)
+            setRole(decoded.user_role)
             setSession(decoded.session_id)
             setExpire(decoded.exp)
 
@@ -99,7 +104,10 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
         setToken(response.data.accessToken);
 
         const decoded: DecodedProps = jwtDecode(response.data.accessToken);
+
         setUsername(decoded.username)
+        setRole(decoded.user_role)
+        setSession(decoded.session_id)
         setExpire(decoded.exp)
 
       } catch (error) {
@@ -123,10 +131,20 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ username, session, token, expire, createAxiosJWT }}>
+    <AuthContext.Provider value={{ username, role, session, token, expire, createAxiosJWT }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export { AuthContext, ProtectedRoute };
+const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+
+  return context;
+}
+
+export { AuthContext, ProtectedRoute, useAuth };

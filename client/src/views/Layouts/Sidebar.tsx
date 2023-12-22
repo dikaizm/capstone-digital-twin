@@ -4,9 +4,10 @@ import ApplicationLogo from "@Components/ApplicationLogo";
 import ArrowIcon from '@Icons/Arrow';
 import { ElementType, MouseEventHandler, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Logout, OptionDots, Profile, Billet } from "../Components/Icons/IconSidebar";
+import { Logout, OptionDots, Profile, Billet, ProfileEdit } from "../Components/Icons/IconSidebar";
 import axios from "axios";
 import { apiUrl } from "@/config";
+import { useAuth } from "@/context/AuthContext";
 
 interface SidebarProps {
   user: {
@@ -95,6 +96,7 @@ interface MenuItemProps {
 }
 
 function MenuItem({ state, labelState, setLabelState, icon, desc, onClick, children, type }: MenuItemProps) {
+
   const { main: Icon, option: Option } = icon;
   const navigate = useNavigate()
 
@@ -139,9 +141,25 @@ function MenuItem({ state, labelState, setLabelState, icon, desc, onClick, child
       </button>
 
       {optionActive && type === "profile" && (
-        <div className={"absolute overflow-hidden text-sm text-slate-300 bg-gray-700 border border-gray-600 rounded-lg bottom-14" + " " + (state ? "w-full" : "w-36")}>
+        <div className={"absolute overflow-hidden text-sm text-slate-700 bg-slate-200 border border-gray-300 rounded-lg bottom-14 shadow-xl" + " " + (state ? "w-full" : "w-36")}>
 
-          <div className="transition-colors hover:bg-slate-800">
+          {/* <div className="transition-colors hover:bg-slate-300">
+            <button className="flex items-center w-full gap-3 p-2" type="button" onClick={async (e) => {
+              e.preventDefault()
+              setOptionActive(false)
+
+              const response = await axiosJWT.get(`${apiUrl()}/profile`)
+
+              if (response.data.success) {
+                navigate('/profile')
+              }
+            }}>
+              <ProfileEdit className="w-6" />
+              <span>Profil</span>
+            </button>
+          </div> */}
+
+          <div className="transition-colors hover:bg-slate-300">
             <button className="flex items-center w-full gap-3 p-2" type="button" onClick={async (e) => {
               e.preventDefault()
               setOptionActive(false)

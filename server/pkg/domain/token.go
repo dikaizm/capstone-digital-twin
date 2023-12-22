@@ -8,6 +8,7 @@ import (
 type JwtClaims struct {
 	SessionID string `json:"session_id"`
 	Username  string `json:"username"`
+	UserRole  string `json:"user_role"`
 	UserID    int    `json:"user_id"`
 	jwt.StandardClaims
 }

@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Toaster } from 'react-hot-toast';
 
 import Sidebar from '@Layouts/Sidebar';
 import Topbar from '@Layouts/Topbar';
 import SecondarySidebar from '@Layouts/SecondarySidebar';
+import { AuthContext, useAuth } from '@/context/AuthContext';
 
 interface UserProps {
   name: string;
@@ -13,25 +14,30 @@ interface UserProps {
 
 export default function Authenticated({ children }: ParentProps) {
 
+  const { username, role } = useAuth()
+
   const [user, setUser] = useState<UserProps>({ name: '', role: '' })
 
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState<boolean>(false)
 
-  const getUserInfo = () => {
-    const cookie = Cookies.get('uid');
-    if (cookie) {
-      const [name, role] = cookie.split('/').map(part => part.split('@@')[1]);
+  const getUserInfo = (username: string, role: string) => {
+    // const cookie = Cookies.get('uid');
+    // if (cookie) {
+    //   const [name, role] = cookie.split('/').map(part => part.split('@@')[1]);
 
-      if (name && role) {
-        setUser({ name, role });
-      }
+    //   if (name && role) {
+    //     setUser({ name, role });
+    //   }
+    // }
+    if (username && role) {
+      setUser({ name: username, role: role })
     }
   }
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    getUserInfo(username, role);
+  }, [username, role]);
 
   return (
     <div className="w-full min-h-screen bg-scene">

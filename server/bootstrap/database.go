@@ -105,6 +105,44 @@ func InitiateData(db *gorm.DB) {
 	if err := db.Create(&initial_users).Error; err != nil {
 		log.Fatal(err)
 	}
+
+	initial_equipment := []domain.Equipment{
+		{
+			Name: "vdc",
+		},
+		{
+			Name: "homogenizing",
+		},
+		{
+			Name: "coolingOne",
+		},
+		{
+			Name: "coolingTwo",
+		},
+	}
+
+	if err := db.Create(&initial_equipment).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	initial_parameters := []domain.Parameter{
+		{
+			EquipmentID:   1,
+			EquipmentName: initial_equipment[0].Name,
+			PLC:           "plc1",
+			TagName:       "CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data",
+			InputType:     "float",
+			Unit:          "C",
+			LowerBound:    nil,
+			UpperBound:    nil,
+			Label:         "Temperature Casting Table",
+			IsShown:       true,
+		},
+	}
+
+	if err := db.Create(&initial_parameters).Error; err != nil {
+		log.Fatal(err)
+	}
 }
 
 func SetupInfluxConn(env *Env) *influxdb2.Client {
