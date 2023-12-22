@@ -111,7 +111,7 @@ export function HomogenizingEquipmentDetail({ data, type }: EquipmentDetailProps
       data.tag?.GL_BF1_ProcData_furn1Z2L_airTemp,
       data.tag?.GL_BF1_ProcData_furn1Z2R_airTemp,
       data.tag?.GL_BF1_ProcData_furn1Z1L_logTemp_1,
-      data.tag?.DO_QP0421_BF1_HOMO_onOff_rd,
+      // data.tag?.DO_QP0421_BF1_HOMO_onOff_rd,
       data.tag?.GL_BF1_ProcData_furn1Z1R_logTemp_1,
       data.tag?.GL_BF1_ProcData_furn1Z2L_logTemp_1,
       data.tag?.GL_BF1_ProcData_furn1Z2L_logTemp_2,

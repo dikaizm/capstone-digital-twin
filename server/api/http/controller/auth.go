@@ -92,13 +92,13 @@ func (ac *AuthController) Logout(c *gin.Context) {
 	session, err := ac.AuthUseCase.VerifySession(c, token)
 	if err != nil {
 		ac.Response.ErrorResponse(c, http.StatusUnauthorized, "Session unauthorized", err, nil)
-		return
+
 	}
 
 	err = ac.AuthUseCase.Logout(c, session.SessionID)
 	if err != nil {
 		ac.Response.ErrorResponse(c, http.StatusInternalServerError, "Logout failed", err, nil)
-		return
+
 	}
 
 	c.SetCookie(cookieUserSession, "", -1, "", "", false, true)

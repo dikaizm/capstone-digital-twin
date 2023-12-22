@@ -27,7 +27,19 @@ func ConnectMySQL(config MySQLConfig) (*gorm.DB, error) {
 }
 
 func MigrateMySQL(db *gorm.DB) error {
-	err := db.AutoMigrate(
+	// Drop tables before migration
+	err := db.Migrator().DropTable(
+		&domain.UserRole{},
+		&domain.User{},
+		&domain.UserSession{},
+		&domain.Equipment{},
+		&domain.Parameter{},
+	)
+	if err != nil {
+		return err
+	}
+
+	err = db.AutoMigrate(
 		&domain.UserRole{},
 		&domain.User{},
 		&domain.UserSession{},

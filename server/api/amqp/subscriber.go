@@ -82,11 +82,11 @@ func SetupEventSubscriber(env *bootstrap.Env, db *gorm.DB) {
 
 func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *map[string]*controller.WebSocketConnection, db *gorm.DB) {
 
-	// log.Printf("%s %s", inColor("Received message:"), string(msg.Body))
+	log.Printf("%s %s", inColor("Received message:"), string(msg.Body))
 
 	payload := &domain.Payload{}
 	if err := json.Unmarshal(msg.Body, &payload); err != nil {
-		fmt.Println("Error:", err)
+		fmt.Println("Error unmarshal payload:", err)
 		return
 	}
 
@@ -118,6 +118,8 @@ func ProcessMessage(msg amqp.Delivery, params *[]domain.Parameter, connections *
 			}
 
 			transformPayload.Value = math.Round(floatValue*100) / 100
+		} else {
+			transformPayload.Value = payload.Value
 		}
 
 		// Get equipment status based on value

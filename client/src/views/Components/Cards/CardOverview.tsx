@@ -12,7 +12,10 @@ export default function CardOverview({ data, children }: CardProps) {
   const { role } = useAuth()
 
   return (
-    <div id="card-overview" className="h-fit">
+    <div id="card-overview"
+      className={"h-fit " +
+        (data.status === 1 ? "bg-green-600" : data.status === 2 ? "bg-red-600" : "bg-gray-500")
+      }>
       <div className="flex flex-col gap-2 container-card">
         {/* <div className="flex items-center justify-between gap-2">
           <span className="text-[12px] font-medium">Status: Operation</span>
@@ -21,7 +24,7 @@ export default function CardOverview({ data, children }: CardProps) {
 
         <h3 className="text-base font-bold">{data?.equipmentName}</h3>
 
-        {role && (role == "admin" || role == "level2" || role == "level3") && (
+        {role && (role !== "level1") && (
           <div>{children}</div>
         )}
       </div>

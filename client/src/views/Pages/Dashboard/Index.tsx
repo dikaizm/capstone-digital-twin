@@ -15,11 +15,13 @@ import { DefaultLoadingManager } from "three";
 import { DDSLoader } from "three/examples/jsm/loaders/DDSLoader.js";
 import Lights from "@/views/Components/Scenes/Lights";
 import Windows from "@/views/Layouts/WindowsLayout";
+import { useAuth } from "@/context/AuthContext";
 
 DefaultLoadingManager.addHandler(/\.dds$/i, new DDSLoader())
 
 export default function Dashboard() {
   const { displayState } = useDisplay()
+  const { role } = useAuth()
 
   return (
     <AuthenticatedLayout>
@@ -38,7 +40,7 @@ export default function Dashboard() {
       }>
         <Canvas frameloop="demand" shadows>
 
-          {/* <GroupObjects /> */}
+          <GroupObjects />
 
           {displayState && <FlowLine />}
 
@@ -58,7 +60,7 @@ export default function Dashboard() {
 
         </Canvas>
 
-        <Windows />
+        {role && role !== "level1" && <Windows />}
 
       </Suspense>
     </AuthenticatedLayout>

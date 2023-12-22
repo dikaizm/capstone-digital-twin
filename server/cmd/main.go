@@ -16,6 +16,8 @@ func main() {
 
 	// Set up the MySQL connection for the application
 	app.DB = bootstrap.SetupMySQLConn(app.Env)
+
+	// Migrate the database
 	if err := bootstrap.SetupAutoMigrate(app.DB); err != nil {
 		log.Fatal("Failed to migrate database: ", err)
 	} else {

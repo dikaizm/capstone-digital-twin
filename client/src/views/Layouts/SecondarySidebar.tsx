@@ -160,7 +160,7 @@ export default function SecondarySidebar({ state }: SecondarySidebarProps) {
         handle={<SidebarHandle />}
       >
         <div className="relative container-sidebar">
-          <h2>Overview</h2>
+          <h2 className="text-black">Overview</h2>
 
           <div className="overview-wrapper">
             <div className={"grid-wrapper" + " " + (sidebarWidth < 390 ? "grid-cols-1" : sidebarWidth > DEFAULT_SIDEBAR_WIDTH + 40 ? "grid-cols-3" : "grid-cols-2")}>
@@ -227,13 +227,17 @@ function splitArray(data: EquipmentsProps[], parts: number): EquipmentsProps[][]
   const result: EquipmentsProps[][] = [];
 
   const partSize: number = Math.floor(data.length / parts);
-  const extraItems: number = data.length % parts;
+  let extraItems: number = data.length % parts;
+
+  let startIndex = 0;
 
   for (let i = 0; i < parts; i++) {
-    const startIndex = i * partSize;
-    const endIndex = startIndex + partSize + (i < extraItems ? 1 : 0);
+    const endIndex = startIndex + partSize + (extraItems > 0 ? 1 : 0);
 
     result.push(data.slice(startIndex, endIndex));
+
+    startIndex = endIndex;
+    extraItems--;
   }
 
   return result;

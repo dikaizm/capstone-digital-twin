@@ -53,7 +53,6 @@ const DataProvider = ({ children }: DataProviderProps) => {
 
       socketRef.current.addEventListener('message', (event) => {
         const message: MessageProps = JSON.parse(event.data);
-console.log(message);
 
         message['key'] = message.equipment_name
 

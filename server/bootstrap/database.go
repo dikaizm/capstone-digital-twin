@@ -41,12 +41,6 @@ func SetupAutoMigrate(db *gorm.DB) error {
 }
 
 func InitiateData(db *gorm.DB) {
-	var count int64
-	db.Model(&domain.UserRole{}).Count(&count)
-	if count > 0 {
-		fmt.Println("Initial roles already exist in the database")
-		return
-	}
 
 	initial_role_levels := []domain.UserRole{
 		{
@@ -106,7 +100,7 @@ func InitiateData(db *gorm.DB) {
 		log.Fatal(err)
 	}
 
-	initial_equipment := []domain.Equipment{
+	initial_equipments := []domain.Equipment{
 		{
 			Name: "vdc",
 		},
@@ -121,14 +115,14 @@ func InitiateData(db *gorm.DB) {
 		},
 	}
 
-	if err := db.Create(&initial_equipment).Error; err != nil {
+	if err := db.Create(&initial_equipments).Error; err != nil {
 		log.Fatal(err)
 	}
 
 	initial_parameters := []domain.Parameter{
 		{
 			EquipmentID:   1,
-			EquipmentName: initial_equipment[0].Name,
+			EquipmentName: initial_equipments[0].Name,
 			PLC:           "plc1",
 			TagName:       "CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data",
 			InputType:     "float",
@@ -141,7 +135,7 @@ func InitiateData(db *gorm.DB) {
 
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z1L_airTemp",
 			InputType:     "float",
@@ -149,10 +143,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Z1 Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z1R_airTemp",
 			InputType:     "float",
@@ -160,10 +155,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Z1 Right",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z2L_airTemp",
 			InputType:     "float",
@@ -171,10 +167,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Z2 Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z1L_logTemp_1",
 			InputType:     "float",
@@ -182,10 +179,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Billet Temperature Z1 Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z2R_airTemp",
 			InputType:     "float",
@@ -193,21 +191,23 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Z2 Right",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "DO_QP0421_BF1_HOMO_onOff_rd",
-			InputType:     "float",
-			Unit:          "°C",
+			InputType:     "string",
+			Unit:          "",
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Status",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z1R_logTemp_1",
 			InputType:     "float",
@@ -215,10 +215,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Billet Temperature Z1 Right",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z2L_logTemp_1",
 			InputType:     "float",
@@ -226,10 +227,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Billet Temperature Z2 Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z2L_logTemp_2",
 			InputType:     "float",
@@ -237,10 +239,11 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Billet Temperature Z2 Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   2,
-			EquipmentName: initial_equipment[1].Name,
+			EquipmentName: initial_equipments[1].Name,
 			PLC:           "plc1",
 			TagName:       "GL_BF1_ProcData_furn1Z2R_logTemp_1",
 			InputType:     "float",
@@ -248,11 +251,12 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Billet Temperature Z2 Right",
+			IsShown:       true,
 		},
 
 		{
 			EquipmentID:   3,
-			EquipmentName: initial_equipment[2].Name,
+			EquipmentName: initial_equipments[2].Name,
 			PLC:           "plc1",
 			TagName:       "GL_HMI_ACT_ACS1_logTempL",
 			InputType:     "float",
@@ -260,22 +264,24 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   3,
-			EquipmentName: initial_equipment[2].Name,
+			EquipmentName: initial_equipments[2].Name,
 			PLC:           "plc1",
-			TagName:       "GL_HMI_ACT_ACS1_logTempR:3:I.Ch0Data",
+			TagName:       "GL_HMI_ACT_ACS1_logTempR",
 			InputType:     "float",
 			Unit:          "°C",
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Right",
+			IsShown:       true,
 		},
 
 		{
 			EquipmentID:   4,
-			EquipmentName: initial_equipment[3].Name,
+			EquipmentName: initial_equipments[3].Name,
 			PLC:           "plc1",
 			TagName:       "GL_HMI_ACT_ACS2_logTempL",
 			InputType:     "float",
@@ -283,17 +289,19 @@ func InitiateData(db *gorm.DB) {
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Left",
+			IsShown:       true,
 		},
 		{
 			EquipmentID:   4,
-			EquipmentName: initial_equipment[3].Name,
+			EquipmentName: initial_equipments[3].Name,
 			PLC:           "plc1",
-			TagName:       "GL_HMI_ACT_ACS2_logTempR:3:I.Ch0Data",
+			TagName:       "GL_HMI_ACT_ACS2_logTempR",
 			InputType:     "float",
 			Unit:          "°C",
 			LowerBound:    nil,
 			UpperBound:    nil,
 			Label:         "Air Temperature Right",
+			IsShown:       true,
 		},
 	}
 

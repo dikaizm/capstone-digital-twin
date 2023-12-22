@@ -5,6 +5,7 @@ import { JSXElementConstructor, ReactNode, useEffect, useState } from "react"
 import { FlowIcon } from "../Components/Icons/DisplayIcon";
 import { useDisplay } from "@/context/DisplayContext";
 import { useNotification } from "@/context/NotificationContext";
+import { Trash } from "../Components/Icons/IconSidebar";
 
 interface TopbarProps {
   stateLeft: boolean;
@@ -147,8 +148,11 @@ function NotificationContainer() {
         </div>
 
         {notifications.length > 0 && (
-          <div className="flex items-center justify-center transition-colors bg-slate-300 hover:bg-slate-500">
-            <button type="button" className="w-full h-full p-2 text-sm font-medium" onClick={() => clearNotifications()}>Hapus semua</button>
+          <div className="flex items-center justify-center transition-colors bg-slate-200 hover:bg-slate-300 border-t border-slate-300">
+            <button type="button" className="flex justify-center items-center gap-2 w-full h-full p-2 text-sm font-medium" onClick={() => clearNotifications()}>
+              <Trash className="w-5" />
+              <span>Hapus semua</span>
+            </button>
           </div>
         )}
 
