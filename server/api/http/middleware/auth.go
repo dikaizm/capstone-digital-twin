@@ -30,6 +30,8 @@ func Authenticate(secret string) gin.HandlerFunc {
 		}
 
 		c.Set("session_id", verifyRes.SessionID)
+		c.Set("username", verifyRes.Username)
+		c.Set("user_role", verifyRes.UserRole)
 		c.Next()
 	}
 }

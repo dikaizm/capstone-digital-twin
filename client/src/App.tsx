@@ -27,7 +27,9 @@ export default function App() {
                     <DataProvider>
                       <WindowStateProvider>
                         <DisplayProvider>
+
                           <Dashboard />
+                          
                         </DisplayProvider>
                       </WindowStateProvider>
                     </DataProvider>

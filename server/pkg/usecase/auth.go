@@ -183,6 +183,7 @@ func (c *authUseCase) VerifySession(ctx context.Context, refreshToken string) (d
 	response := domain.VerifyTokenResponse{
 		SessionID: session.SessionID,
 		Username:  verifyRes.Username,
+		UserRole:  verifyRes.UserRole,
 		UserID:    session.UserID,
 	}
 	return response, nil

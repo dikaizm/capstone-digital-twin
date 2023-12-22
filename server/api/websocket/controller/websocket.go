@@ -7,10 +7,8 @@ import (
 	"net/http"
 
 	"github.com/MIND-ID-Tel-U/mindid-digital-twin/server/pkg/domain"
-	"github.com/MIND-ID-Tel-U/mindid-digital-twin/server/pkg/repository"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"gorm.io/gorm"
 )
 
 type MessageResponse struct {
@@ -25,7 +23,6 @@ type WebSocketConnection struct {
 
 type WebSocket struct {
 	Upgrader *websocket.Upgrader
-	User     domain.UserRepository
 }
 
 var connections = make(map[string]*WebSocketConnection)
@@ -37,8 +34,8 @@ func GetConnections() map[string]*WebSocketConnection {
 func NewWebSocket(
 	clientHost string,
 	clientPort int,
-	db *gorm.DB,
 ) *WebSocket {
+
 	clientAddress := fmt.Sprintf("%s:%d", clientHost, clientPort)
 
 	upgrader := &websocket.Upgrader{
@@ -59,7 +56,6 @@ func NewWebSocket(
 
 	return &WebSocket{
 		Upgrader: upgrader,
-		User:     repository.NewUserRepository(db),
 	}
 }
 
@@ -73,15 +69,8 @@ func (ws *WebSocket) WebSocketConn(c *gin.Context) {
 
 	// Get session ID from URL query string
 	sessionID := c.Query("session")
-	username := c.Query("username")
-
-	role, err := ws.User.GetRoleByUsername(c, username)
-
-	if err != nil {
-		log.Printf("%s, error while getting role from user ID\n", err.Error())
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+	// token := c.Query("token")
+	role := c.Query("role")
 
 	currentConn := &WebSocketConnection{
 		Conn:      conn,
@@ -91,7 +80,7 @@ func (ws *WebSocket) WebSocketConn(c *gin.Context) {
 
 	connections[sessionID] = currentConn // Storing connection based on session ID
 
-	log.Printf("WebSocket connection established for session %s, user %s\n", sessionID, username)
+	log.Printf("WebSocket connection established for session %s, user %s\n", sessionID, role)
 }
 
 func WebSocketHandler(conn *WebSocketConnection, payload domain.TransformPayload) {

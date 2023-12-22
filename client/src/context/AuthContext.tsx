@@ -56,8 +56,8 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
 
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
-            setToken(response.data.accessToken);
-            const decoded: DecodedProps = jwtDecode(response.data.accessToken);
+            setToken(response.data.data[0].access_token);
+            const decoded: DecodedProps = jwtDecode(token);
 
             setUsername(decoded.username)
             setRole(decoded.user_role)
@@ -82,7 +82,7 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
     );
 
     return axiosJWTInstance;
-  }, [expire, setToken, setUsername, setExpire, navigate]);
+  }, [expire, token, navigate]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,9 +101,8 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
 
         const response = await axios.get(`${apiUrl()}/token`);
 
-        setToken(response.data.accessToken);
-
-        const decoded: DecodedProps = jwtDecode(response.data.accessToken);
+        setToken(response.data.data[0].access_token);
+        const decoded: DecodedProps = jwtDecode(token);
 
         setUsername(decoded.username)
         setRole(decoded.user_role)
@@ -123,7 +122,7 @@ const ProtectedRoute = ({ children }: AuthProviderProps) => {
 
     refreshToken(navigate);
 
-  }, [navigate])
+  }, [navigate, token])
 
   const authCookie = Cookies.get('is_authed');
   if (authCookie !== "true") {
@@ -147,4 +146,5 @@ const useAuth = () => {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { AuthContext, ProtectedRoute, useAuth };

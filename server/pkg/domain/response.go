@@ -39,5 +39,6 @@ type GenerateTokenResponse struct {
 type VerifyTokenResponse struct {
 	SessionID string `json:"session_id"`
 	Username  string `json:"username"`
+	UserRole  string `json:"user_role"`
 	UserID    int    `json:"user_id"`
 }

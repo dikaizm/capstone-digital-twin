@@ -34,6 +34,7 @@ func (ts *TokenService) GenerateToken(req *domain.GenerateTokenRequest, secret s
 
 	claims := &domain.JwtClaims{
 		Username:  req.Username,
+		UserRole:  req.UserRole,
 		SessionID: sessionID,
 		UserID:    req.UserID,
 		StandardClaims: jwt.StandardClaims{
@@ -74,6 +75,7 @@ func (ts *TokenService) VerifyToken(requestToken string, secret string) (domain.
 
 	response := domain.VerifyTokenResponse{
 		Username:  claims.Username,
+		UserRole:  claims.UserRole,
 		SessionID: claims.SessionID,
 		UserID:    claims.UserID,
 	}

@@ -18,9 +18,8 @@ func Start(app *bootstrap.Application) error {
 
 	// Initialize WebSocket server
 	app.WebSocket = controller.NewWebSocket(
-		app.Env.ClientHost,
-		app.Env.ClientPort,
-		app.DB,
+		env.ClientHost,
+		env.ClientPort,
 	)
 	ws_route.Setup(app.Server, app.WebSocket)
 

@@ -1,6 +1,6 @@
 import { InitialDataField } from '@/types/constant';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { AuthContext } from './AuthContext';
+import { useAuth } from './AuthContext';
 import { wsUrl } from '@/config';
 import toast from 'react-hot-toast';
 import { useNotification } from './NotificationContext';
@@ -34,7 +34,7 @@ const useData = () => {
 const DataProvider = ({ children }: DataProviderProps) => {
   const socketRef = useRef<WebSocket | null>(null);
   const [data, setData] = useState(InitialDataField)
-  const { session, username } = useContext(AuthContext)
+  const { session, role, token } = useAuth()
   const { addNotification } = useNotification()
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
     }
 
     if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-      socketRef.current = new WebSocket(`${wsUrl()}?session=${session}&username=${username}`);
+      socketRef.current = new WebSocket(`${wsUrl()}?session=${session}&token=${token}&role=${role}`);
 
       socketRef.current.addEventListener('open', () => {
         toast.success('WebSocket connection ' + 'success')
@@ -53,6 +53,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
 
       socketRef.current.addEventListener('message', (event) => {
         const message: MessageProps = JSON.parse(event.data);
+console.log(message);
 
         message['key'] = message.equipment_name
 
@@ -77,7 +78,7 @@ const DataProvider = ({ children }: DataProviderProps) => {
         addNotification("WebSocket connection " + 'closed ❌')
       });
     }
-  }, [session, data, addNotification, username]);
+  }, [session, data, addNotification, token, role]);
 
   return (
     <WebSocketContext.Provider value={{ data }}>

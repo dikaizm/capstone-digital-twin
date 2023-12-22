@@ -1,5 +1,10 @@
 package domain
 
+type Equipment struct {
+	ID   uint   `gorm:"primary_key" json:"id"`
+	Name string `gorm:"not null;unique" json:"name"`
+}
+
 type Parameter struct {
 	ID            uint    `gorm:"primary_key" json:"id"`
 	EquipmentID   uint    `gorm:"not null" json:"equipment_id"`
@@ -12,11 +17,8 @@ type Parameter struct {
 	UpperBound    *string `gorm:"null" json:"upper_bound"`
 	Label         string  `gorm:"not null" json:"label"`
 	IsShown       bool    `gorm:"not null" json:"is_shown"`
-}
 
-type Equipment struct {
-	ID   int    `gorm:"primary_key" json:"id"`
-	Name string `gorm:"not null;unique" json:"name"`
+	Equipment Equipment `gorm:"foreignKey:EquipmentID;references:ID" json:"equipment"`
 }
 
 func (Equipment) TableName() string {

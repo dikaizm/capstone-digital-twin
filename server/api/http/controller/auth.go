@@ -171,6 +171,7 @@ func (ac *AuthController) UpdateUserSession(c *gin.Context) {
 	tokenReq := &domain.GenerateTokenRequest{
 		SessionID: session.SessionID,
 		Username:  session.Username,
+		UserRole:  session.UserRole,
 		UserID:    session.UserID,
 	}
 

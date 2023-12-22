@@ -38,7 +38,7 @@ export default function Dashboard() {
       }>
         <Canvas frameloop="demand" shadows>
 
-          <GroupObjects />
+          {/* <GroupObjects /> */}
 
           {displayState && <FlowLine />}
 

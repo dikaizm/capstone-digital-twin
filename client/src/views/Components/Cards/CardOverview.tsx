@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import "./cards.scss"
+import { useAuth } from "@/context/AuthContext";
 // import { CircleIndicator } from "../Icons/IconCard";
 
 interface CardProps {
@@ -8,6 +9,7 @@ interface CardProps {
 }
 
 export default function CardOverview({ data, children }: CardProps) {
+  const { role } = useAuth()
 
   return (
     <div id="card-overview" className="h-fit">
@@ -19,7 +21,9 @@ export default function CardOverview({ data, children }: CardProps) {
 
         <h3 className="text-base font-bold">{data?.equipmentName}</h3>
 
-        <div>{children}</div>
+        {role && (role == "admin" || role == "level2" || role == "level3") && (
+          <div>{children}</div>
+        )}
       </div>
     </div>
   )
