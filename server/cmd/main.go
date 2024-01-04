@@ -18,11 +18,11 @@ func main() {
 	app.DB = bootstrap.SetupMySQLConn(app.Env)
 
 	// Migrate the database
-	if err := bootstrap.SetupAutoMigrate(app.DB); err != nil {
-		log.Fatal("Failed to migrate database: ", err)
-	} else {
-		bootstrap.InitiateData(app.DB)
-	}
+	// if err := bootstrap.SetupAutoMigrate(app.DB); err != nil {
+	// 	log.Fatal("Failed to migrate database: ", err)
+	// } else {
+	// 	bootstrap.InitiateData(app.DB)
+	// }
 
 	// Set up the InfluxDB connection
 	app.InfluxDB = bootstrap.SetupInfluxConn(app.Env)
