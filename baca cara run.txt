@@ -1,0 +1,16 @@
+## Cara Run Web Digital Twin
+
+1. Buka xampp > pada MySQL klik Start
+2. Double-click file start-app.bat > tunggu sampai muncul popup > Allow Access
+3. Jika golang tidak mau run, lihat bagian Cara Fix Golang lalu ulangi Run Digital Twin dari langkah 1
+4. Buka localhost:8000 di browser
+
+
+## Cara Fix Golang
+
+1. Klik Windows + R
+2. Ketik regedit lalu Enter
+3. Masukkan perintah berikut pada jendela pencarian di Registry Editor:
+Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+4. Klik kanan folder Windows Defender > pilih Delete > Yes
+5. Restart komputer
