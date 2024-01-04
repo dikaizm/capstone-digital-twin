@@ -51,6 +51,32 @@ func SetupEventSubscriber(env *bootstrap.Env, db *gorm.DB) {
 		log.Fatalf("Failed to declare a queue: %v", err)
 	}
 
+	// Declare the exchange
+	err = ch.ExchangeDeclare(
+		"inalum", // exchange name
+		"topic",  // exchange type
+		true,     // durable
+		false,    // autoDelete
+		false,    // internal
+		false,    // noWait
+		nil,      // arguments
+	)
+	if err != nil {
+		log.Fatalf("Failed to declare exchange: %v", err)
+	}
+
+	// Bind the queue to the exchange with a routing key
+	err = ch.QueueBind(
+		q.Name,         // queue name
+		"InalumDTp4ss", // routing key
+		"inalum",       // exchange name
+		false,          // noWait
+		nil,            // arguments
+	)
+	if err != nil {
+		log.Fatalf("Failed to bind queue to exchange: %v", err)
+	}
+
 	// Consume messages from the queue
 	msgs, err := ch.Consume(
 		q.Name, // queue name

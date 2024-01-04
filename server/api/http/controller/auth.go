@@ -193,6 +193,9 @@ func (ac *AuthController) UpdateUserSession(c *gin.Context) {
 		return
 	}
 
+	authorizationValue := authorizationType + " " + refreshTokenRes.Token
+	c.Header(authorizationHeaderKey, authorizationValue)
+
 	cookieExpSession := 3600 * ac.Env.RefreshTokenExpiryHour
 	c.SetCookie(cookieUserSession, refreshTokenRes.Token, cookieExpSession, "", "", false, true)
 
@@ -203,5 +206,4 @@ func (ac *AuthController) UpdateUserSession(c *gin.Context) {
 		AccessToken: accessTokenRes.Token,
 	}
 	ac.Response.SuccessResponse(c, http.StatusOK, "User session updated successfully", response)
-
 }

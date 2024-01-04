@@ -1,0 +1,436 @@
+[
+    {
+        "id": "44adc4675746a744",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "58988245f20365d7",
+        "type": "debug",
+        "z": "44adc4675746a744",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1440,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "98e84f23de3b7be3",
+        "type": "amqp-out",
+        "z": "44adc4675746a744",
+        "name": "",
+        "broker": "2a75dbc71313fc93",
+        "exchangeName": "inalum",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "InalumDTp4ss",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 1480,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "796edca840a88aee",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "plc",
+        "func": "msg.payload[\"message_type\"] = \"plc\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 980,
+        "wires": [
+            [
+                "58988245f20365d7",
+                "98e84f23de3b7be3"
+            ]
+        ]
+    },
+    {
+        "id": "82168aa9056beeb4",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "plc1",
+        "func": "msg.payload[\"plc\"] = \"plc1\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 820,
+        "wires": [
+            [
+                "796edca840a88aee"
+            ]
+        ]
+    },
+    {
+        "id": "3bf98534624db7ad",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "VDC Equipment",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length-1)\n\n    return array[randIdx]\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 200;\nconst maxRange = 300;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"LSYS_E2_IO_Cabinet_Launder:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"CCS_E1_PLC_Cabinet_PointIO:3:I.Ch0Data\", \"value\":randValInt},\n    {\"tag_name\":\"CM_E7_Cooling_Water:1:I.Ch0Data\", \"value\":randValFloat}\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 680,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "c1fb4d8cc4d30901",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 490,
+        "y": 680,
+        "wires": [
+            [
+                "3bf98534624db7ad"
+            ]
+        ]
+    },
+    {
+        "id": "426018e57789b373",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "Homogenizing Equipment",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n  const randIdx = Math.floor(Math.random() * array.length);\n\n  return array[randIdx];\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 350;\nconst maxRange = 450;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z1L_airTemp\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z1R_airTemp\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z2L_airTemp\", \"value\":randValFloat}\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 860,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "7676d3bc73e634f8",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "Homogenizing Equipment",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length);\n\n    return array[randIdx];\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 350;\nconst maxRange = 450;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z1L_logTemp_1\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z2R_airTemp\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z1R_logTemp_1\", \"value\":randValFloat}\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 920,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "049692765e166d8c",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "Homogenizing ON/OFF",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length);\n\n    return array[randIdx];\n}\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"DO_QP0421_BF1_HOMO_onOff_rd\", \"value\":\"ON\"},\n];\n\n// Shuffle the array randomly\nvar randomData = inputData[0];\n\n// Send the shuffled data to the next node\nmsg.payload = randomData;\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "942e08383769a858",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "Homogenizing Equipment",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length);\n\n    return array[randIdx];\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 350;\nconst maxRange = 450;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z2L_logTemp_1\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z2L_logTemp_2\", \"value\":randValInt},\n    {\"tag_name\":\"GL_BF1_ProcData_furn1Z2R_logTemp_1\", \"value\":randValFloat}\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 980,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "55f28bcc73c6c900",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "CoolingOne",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n    const randIdx = Math.floor(Math.random() * array.length);\n\n    return array[randIdx];\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 50;\nconst maxRange = 150;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_HMI_ACT_ACS1_logTempL\", \"value\":randValInt},\n    {\"tag_name\":\"GL_HMI_ACT_ACS1_logTempR\", \"value\":randValInt},\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 1080,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "41dcba0caadeac1c",
+        "type": "function",
+        "z": "44adc4675746a744",
+        "name": "CoolingTwo",
+        "func": "/**\n* @param {string | any[]} array\n*/\nfunction getRandom(array) {\n  const randIdx = Math.floor(Math.random() * array.length);\n\n  return array[randIdx];\n}\n\n// Function to get a random integer within a specified range [min, max]\nfunction getRandomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// Function to get a random float within a specified range [min, max]\nfunction getRandomFloat(min, max) {\n  return Math.random() * (max - min) + min;\n}\n\n// Example usage\nconst minRange = 50;\nconst maxRange = 100;\n\nconst randValInt = `${getRandomInt(minRange, maxRange)}`;\nconst randValFloat = `${getRandomFloat(minRange, maxRange)}`;\n\n// Array of data to be shuffled\nvar inputData = [\n    {\"tag_name\":\"GL_HMI_ACT_ACS2_logTempL\", \"value\":randValInt},\n    {\"tag_name\":\"GL_HMI_ACT_ACS2_logTempR\", \"value\":randValInt},\n];\n\n// Send the shuffled data to the next node\nmsg.payload = getRandom(inputData);\nvar timestamp = Date.now()\nvar localDate = new Date(timestamp).toLocaleString()\nmsg.payload[\"timestamp\"] = localDate\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 1140,
+        "wires": [
+            [
+                "82168aa9056beeb4"
+            ]
+        ]
+    },
+    {
+        "id": "c3341f4b339ab046",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "1s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 800,
+        "wires": [
+            [
+                "049692765e166d8c"
+            ]
+        ]
+    },
+    {
+        "id": "ef98f9438e06eb71",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 860,
+        "wires": [
+            [
+                "426018e57789b373"
+            ]
+        ]
+    },
+    {
+        "id": "c65565030b6abbb0",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 920,
+        "wires": [
+            [
+                "7676d3bc73e634f8"
+            ]
+        ]
+    },
+    {
+        "id": "47658f90808291aa",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 980,
+        "wires": [
+            [
+                "942e08383769a858"
+            ]
+        ]
+    },
+    {
+        "id": "bae8e02b9901606d",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 1080,
+        "wires": [
+            [
+                "55f28bcc73c6c900"
+            ]
+        ]
+    },
+    {
+        "id": "d213aa9babbccc67",
+        "type": "inject",
+        "z": "44adc4675746a744",
+        "name": "2s interval",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 1140,
+        "wires": [
+            [
+                "41dcba0caadeac1c"
+            ]
+        ]
+    },
+    {
+        "id": "2a75dbc71313fc93",
+        "type": "amqp-broker",
+        "name": "RabbitMQ",
+        "host": "localhost",
+        "port": "5672",
+        "vhost": "",
+        "tls": false,
+        "credsFromSettings": false
+    }
+]
